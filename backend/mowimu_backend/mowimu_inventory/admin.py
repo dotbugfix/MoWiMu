@@ -1,3 +1,4 @@
 from django.contrib import admin
+from mowimu_inventory.models import Thing
 
-# Register your models here.
+admin.site.register(Thing)
