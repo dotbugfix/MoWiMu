@@ -10,12 +10,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import os
+import os, sys
 from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# PyInstaller working dir and EXE location
+pyinstaller_exe_path = ''
+pyinstaller_exe_dir = ''
+if getattr(sys, 'frozen', False):
+    # Running in a PyInstaller bundle, look for the DB file in the same dir as the EXE
+    pyinstaller_exe_path = sys.executable
+    pyinstaller_exe_dir = os.path.dirname(os.path.realpath(pyinstaller_exe_path))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -75,10 +82,17 @@ WSGI_APPLICATION = 'mowimu_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+if getattr(sys, 'frozen', False) :
+    # Running in a PyInstaller bundle, look for the DB file in the same dir as the EXE
+    db_path = os.path.join(pyinstaller_exe_dir, 'db.sqlite3')
+else :
+    # Running 'manage.py' directly in development mode
+    db_path = os.path.join(BASE_DIR, 'db.sqlite3')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': db_path,
     }
 }
 
@@ -119,9 +133,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+# Static files are inside the PyInstaller bundle, so BASE_DIR points to the correct location
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 
+if getattr(sys, 'frozen', False) :
+    # Running in a PyInstaller bundle, save media in the same dir as the EXE
+    media_path = os.path.join(pyinstaller_exe_dir, 'media')
+else :
+    # Running 'manage.py' directly in development mode
+    media_path = os.path.join(BASE_DIR, 'media')
+
 # BASE_DIR is the directory that contains manage.py
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = media_path

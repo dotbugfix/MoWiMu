@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Django Static Files
+backend/mowimu_backend/static
+
 # Distribution / packaging
 .Python
 build/
@@ -89,6 +92,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+ve/
 
 # Spyder project settings
 .spyderproject
