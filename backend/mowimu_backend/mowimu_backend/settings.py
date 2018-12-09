@@ -35,6 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# LOGGING configuration is in util/bootstrap.py
 
 # Application definition
 
