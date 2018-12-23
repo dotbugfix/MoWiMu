@@ -33,7 +33,7 @@ SECRET_KEY = '362y+*33)8)%5)$c&_%&-guosnh%eo_!g7%s59^v7@aee51!)y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # LOGGING configuration is in util/bootstrap.py
 
