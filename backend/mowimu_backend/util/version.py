@@ -10,6 +10,6 @@
 # Update the release date on the day of check-in when the version is updated.
 #
 # This string is used as-is on the CLI help display and the 'about' page in the GUI
-__version__ = "0.1.0 beta"
-__release_date__ = "09-Dec-2018"
+__version__ = "0.1.1 beta"
+__release_date__ = "23-Dec-2018"
 __pretty_version__ = "MoWiMu - Mom, Where's My Underwear? v" + __version__ + ' released on ' + __release_date__
